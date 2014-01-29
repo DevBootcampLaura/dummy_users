@@ -3,7 +3,6 @@ enable :sessions
 
 get '/' do
   # Look in app/views/index.erb
-  p session[:id]
   erb :index
 end
 
@@ -13,7 +12,6 @@ post '/' do
     "We could not locate a user based upon the email you provided."
   elsif @user.password == params[:password]
     session[:id] = @user.id
-    p session[:id]
     erb :secret_page
   else
     "The password you provided is incorrect. Please try again or create an account."
@@ -30,7 +28,6 @@ end
 
 get '/logout' do
   session.clear
-  p session[:id]
   redirect to('/')
 end
 
@@ -41,6 +38,5 @@ end
 post '/sign_up' do
   @u = User.create(name: params[:name], email: params[:email], password: params[:password])
   session[:id] = @u.id
-  p session[:id]
   erb :secret_page
 end
