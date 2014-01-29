@@ -6,7 +6,7 @@ get '/' do
   erb :index
 end
 
-post '/' do
+post '/sign_in' do
   @user = User.authenticate(params[:email], params[:password])
   redirect to('/') if @user == nil
 
@@ -32,5 +32,5 @@ end
 post '/sign_up' do
   @u = User.create!(name: params[:name], email: params[:email], password: params[:password])
   session[:id] = @u.id
-  erb :secret_page
+  redirect to('/secret')
 end
